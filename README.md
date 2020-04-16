@@ -3,6 +3,7 @@
 ## Tree
 
 leetcode use a json array as input to represent a tree,
+
 it's hard for us to read the tree.
 
 with the helper, you can turn the input to a readable one, for example:
@@ -16,6 +17,7 @@ func TestSum(t *testing.T) {
 ```
 
 the function `getTreeFromInput` turn the input to a tree,
+
 and the func `PrintTree` will print the tree in text
 
 the following is the printed tree:
@@ -36,9 +38,9 @@ the root is at the left most place, the left child locate blow
 
 the parent, the right child locate above the parent.
 
-so the root is `9`, it's left child is 6, it's right child is 3
+so the root is `9`, it's left child is `6`, it's right child is `-3`
 
-for the node 3, it's right child is 2
+for the node `-3`, it's right child is `2`
 
 
 ## LinkedList
