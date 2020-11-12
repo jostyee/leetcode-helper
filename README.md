@@ -7,7 +7,7 @@ this library helps you with:
 - convert problem's input to golang data structure which used by leetcode
 - display some data structure by leetcode problem's input(string)
 
-now only `linked list`, `tree`, `graph` are supported
+now only `linked list`, `binary tree`, `graph` are supported
 
 ## story
 

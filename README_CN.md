@@ -7,7 +7,7 @@
 - 将题目的输入转换成leetcode采用的golang数据结构。
 - 将leetcode题目的输入的对应数据结构展示出来。
 
-现在只支持了 `linked list`, `tree`, `graph` 
+现在只支持了 `linked list`, `binary tree`, `graph` 
 
 ## 故事
 
