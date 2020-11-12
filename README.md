@@ -30,7 +30,7 @@ with the helper, you can turn the input to a readable one, for example:
 
 ```go
 func TestSum(t *testing.T) {
-	input = `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`
+	input := `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`
 	tree := GetTreeFromInput(input)
 	PrintTree(``, tree)
 }
@@ -68,9 +68,11 @@ for the node `-3`, it's right child is `2`
 the example code:
 
 ```go
-func TestLinkedList (t *testing.T){
+func TestLinkedList(t *testing.T) {
 	input := `1,2,3,4,5,6`
-	head := CreateLinkedListFromStr(input)
+	head := GetLinkedListFromStr(input)
+	// get int linked list instead of string
+	//head := GetIntLinkedListFromStr(input)
 	PrintLinkedListNode(head)
 }
 ```
@@ -93,11 +95,13 @@ for example:
 example code:
 
 ```go
-func TestA(t *testing.T) {
+func TestGraph(t *testing.T) {
 	input := `[[4,3,1],[3,2,4],[3],[4],[]]`
 	if err := RenderGraph(input); err != nil {
 		panic(err)
 	}
 }
 ```
-RenderGraph will pop up a window  displaying the graph
+RenderGraph will pop up a window  displaying the graph(only tested on mac):
+
+![](./images/pop-up-window.png)
