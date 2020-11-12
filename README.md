@@ -1,6 +1,6 @@
 # leetcode-helper(for golang)
 
-a libarary to help you display some data structure by leetcode input
+a library to help you display some data structure by leetcode input
 
 ## story
 
@@ -8,15 +8,15 @@ i like using IDE to solve leetcode problems, it's more efficient,
 
 when i submit my solutions, sometimes my solutions will fail in some cases, 
 
-and leetcode will be kind to tell us the input of the cases 
+and leetcode will be kind to tell us the input of the case
 
 in which our submission failed.
 
 but leetcode input is just a string, which may represent a tree or graph 
 
-or linkedlist, so if we can convert the input to the original data
+or linkedlist, etc. so if we can convert the input to the visual original data
 
-structure displayed in pic, it would help us to figure out what's wrong
+structure, it would help us to figure out what's wrong.
 
 
 
@@ -54,9 +54,9 @@ the following is the printed tree:
      |-- 6
 ```
 
-the root is at the left most place, the left child locate blow
+the root is at the left most place, the left child locate blow the parent, 
 
-the parent, the right child locate above the parent.
+the right child locate above the parent.
 
 so the root is `9`, it's left child is `6`, it's right child is `-3`
 
