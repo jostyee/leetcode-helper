@@ -11,7 +11,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func getTreeFromInput(inputStr string) *TreeNode {
+func GetTreeFromInput(inputStr string) *TreeNode {
 	var input []*int
 	if err := json.Unmarshal([]byte(inputStr), &input); err != nil {
 		panic(err)
