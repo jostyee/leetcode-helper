@@ -16,7 +16,7 @@ type IntListNode struct {
 	Next *IntListNode
 }
 
-func GetLinkedListFromStr(input string) *ListNode {
+func ParseLinkedListFromStr(input string) *ListNode {
 	arr := strings.Split(input, `,`)
 	if len(arr) == 0 {
 		return nil

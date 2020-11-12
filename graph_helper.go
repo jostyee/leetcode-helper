@@ -13,7 +13,7 @@ import (
 	"strconv"
 )
 
-func parseLeetCodeInput(in string) ([][]int, error) {
+func ParseGraphInput(in string) ([][]int, error) {
 	out := [][]int{}
 	if err := json.Unmarshal([]byte(in), &out); err != nil {
 		return nil, err
@@ -22,7 +22,7 @@ func parseLeetCodeInput(in string) ([][]int, error) {
 }
 
 func RenderGraph(in string) error {
-	graph, err := parseLeetCodeInput(in)
+	graph, err := ParseGraphInput(in)
 	if err != nil {
 		return err
 	}

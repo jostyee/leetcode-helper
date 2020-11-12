@@ -29,9 +29,9 @@ it's hard for us to read the tree.
 with the helper, you can turn the input to a readable one, for example:
 
 ```go
-func TestSum(t *testing.T) {
+func TestTree(t *testing.T) {
 	input := `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`
-	tree := GetTreeFromInput(input)
+	tree := ParseTreeFromInput(input)
 	PrintTree(``, tree)
 }
 ```
@@ -70,7 +70,7 @@ the example code:
 ```go
 func TestLinkedList(t *testing.T) {
 	input := `1,2,3,4,5,6`
-	head := GetLinkedListFromStr(input)
+	head := ParseLinkedListFromStr(input)
 	// get int linked list instead of string
 	//head := GetIntLinkedListFromStr(input)
 	PrintLinkedListNode(head)
