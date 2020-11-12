@@ -76,15 +76,15 @@ func balanceWhiteSpace(val string, cnt int) string {
 	return string(b)
 }
 
-func RenderTree(n *TreeNode) error {
+func RenderTree(n *TreeNode) {
 	if n == nil {
-		return nil
+		return
 	}
 
 	stack := []*TreeNode{n}
 	nextStack := []*TreeNode{}
 
-	return render(func(graph *cgraph.Graph) error {
+	render(func(graph *cgraph.Graph) {
 		// cgraph will treat nodes with the same name as the same node
 		seq := map[int]int{}
 		nodeMap := map[*TreeNode]*cgraph.Node{}
@@ -106,32 +106,31 @@ func RenderTree(n *TreeNode) error {
 			for _, v := range stack {
 				s, err := createTreeNode(v)
 				if err != nil {
-					return err
+					panic(err)
 				}
 				if v.Left != nil {
 					d1, err := createTreeNode(v.Left)
 					if err != nil {
-						return err
+						panic(err)
 					}
 					if _, err := graph.CreateEdge(``, s, d1); err != nil {
-						return err
+						panic(err)
 					}
 					nextStack = append(nextStack, v.Left)
 				}
 				if v.Right != nil {
 					d2, err := createTreeNode(v.Right)
 					if err != nil {
-						return err
+						panic(err)
 					}
 					nextStack = append(nextStack, v.Right)
 					if _, err := graph.CreateEdge(``, s, d2); err != nil {
-						return err
+						panic(err)
 					}
 				}
 			}
 			stack, nextStack = nextStack, stack
 			nextStack = nextStack[:0]
 		}
-		return nil
 	})
 }

@@ -7,24 +7,21 @@ import (
 	"os"
 )
 
-func render(f func(graph *cgraph.Graph) error) error {
+func render(f func(graph *cgraph.Graph)) {
 	g := graphviz.New()
 	graph, err := g.Graph()
 	if err != nil {
-		return err
+		panic(err)
 	}
-	if err := f(graph); err != nil {
-		return err
-	}
+	f(graph)
 
 	var buf bytes.Buffer
 	if err := g.Render(graph, graphviz.PNG, &buf); err != nil {
-		return err
+		panic(err)
 	}
-	path := os.TempDir() + `/graph.png`
+	path := os.TempDir() + `/data.png`
 	if err := g.RenderFilename(graph, graphviz.PNG, path); err != nil {
-		return err
+		panic(err)
 	}
 	openbrowser(`file://` + path)
-	return nil
 }

@@ -14,31 +14,19 @@ func TestPrintTree(t *testing.T) {
 func TestRenderTree(t *testing.T) {
 	input := `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`
 	tree := ParseTreeFromInput(input)
-	if err := RenderTree(tree); err != nil {
-		t.Fatal(t)
-	}
+	RenderTree(tree)
 }
 
 func TestGraph(t *testing.T) {
 	input := `[[4,3,1],[3,2,4],[3],[4],[]]`
-	graph, err := ParseGraphInput(input)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := RenderGraph(graph); err != nil {
-		t.Fatal(err)
-	}
+	graph := ParseGraphInput(input)
+	RenderGraph(graph)
 }
 
 func TestGraphEdges(t *testing.T) {
 	input := `[[0,1],[0,2],[2,5],[3,4],[4,2]]`
-	edges, err := ParseEdgesInput(input)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := RenderGraphByEdges(edges); err != nil {
-		t.Fatal(err)
-	}
+	edges := ParseEdgesInput(input)
+	RenderGraphByEdges(edges)
 }
 
 func TestLinkedList(t *testing.T) {
@@ -79,13 +67,8 @@ func helper(graph [][]int, n int, path *[]int, out *[][]int) {
 func TestTmp(t *testing.T) {
 	//input := `[[0,1],[0,2],[2,5],[3,4],[4,2]]`
 	input := `[[4,3,1],[3,2,4],[3],[4],[]]`
-	in, err := ParseGraphInput(input)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := RenderGraph(in); err != nil {
-		t.Fatal(err)
-	}
+	in := ParseGraphInput(input)
+	RenderGraph(in)
 	out := allPathsSourceTarget(in)
 	fmt.Println(out)
 }

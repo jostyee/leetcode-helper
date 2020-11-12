@@ -89,9 +89,7 @@ for example:
 func TestRenderTree(t *testing.T) {
 	input := `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`
 	tree := ParseTreeFromInput(input)
-	if err := RenderTree(tree); err != nil {
-		t.Fatal(t)
-	}
+	RenderTree(tree)
 }
 ```
 
@@ -137,13 +135,8 @@ example code:
 ```go
 func TestGraph(t *testing.T) {
 	input := `[[4,3,1],[3,2,4],[3],[4],[]]`
-	graph, err := ParseGraphInput(input)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := RenderGraph(graph); err != nil {
-		panic(err)
-	}
+	graph := ParseGraphInput(input)
+	RenderGraph(graph)
 }
 ```
 RenderGraph will pop up a window  displaying the graph(only tested on mac):
@@ -161,13 +154,8 @@ example code:
 ```go
 func TestGraphEdges(t *testing.T) {
 	input := `[[0,1],[0,2],[2,5],[3,4],[4,2]]`
-	edges, err := ParseEdgesInput(input)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := RenderGraphByEdges(edges); err != nil {
-		panic(err)
-	}
+	edges := ParseEdgesInput(input)
+	RenderGraphByEdges(edges)
 }
 ```
 
