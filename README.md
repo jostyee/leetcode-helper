@@ -85,7 +85,10 @@ the output is
 
 ## Graph
 
-leetcode use two-dimensional int array to represent graph.
+for now, i met two types of input string to represent graph:
+
+## input represent graph
+
 
 for example: 
 
@@ -97,7 +100,11 @@ example code:
 ```go
 func TestGraph(t *testing.T) {
 	input := `[[4,3,1],[3,2,4],[3],[4],[]]`
-	if err := RenderGraph(input); err != nil {
+	graph, err := ParseGraphInput(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := RenderGraph(graph); err != nil {
 		panic(err)
 	}
 }
@@ -105,3 +112,28 @@ func TestGraph(t *testing.T) {
 RenderGraph will pop up a window  displaying the graph(only tested on mac):
 
 ![](./images/pop-up-window.png)
+
+## input represent edges
+
+for example:
+
+![](./images/edges.png)
+
+example code:
+
+```go
+func TestGraphEdges(t *testing.T) {
+	input := `[[0,1],[0,2],[2,5],[3,4],[4,2]]`
+	edges, err := ParseEdgesInput(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := RenderGraphByEdges(edges); err != nil {
+		panic(err)
+	}
+}
+```
+
+rendered graph:
+
+![](./images/pop-up-window1.png)

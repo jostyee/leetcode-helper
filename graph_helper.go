@@ -14,44 +14,63 @@ import (
 )
 
 func ParseGraphInput(in string) ([][]int, error) {
-	out := [][]int{}
-	if err := json.Unmarshal([]byte(in), &out); err != nil {
+	graph := [][]int{}
+	if err := json.Unmarshal([]byte(in), &graph); err != nil {
 		return nil, err
 	}
-	return out, nil
+	return graph, nil
 }
 
-func RenderGraph(in string) error {
-	graph, err := ParseGraphInput(in)
-	if err != nil {
-		return err
+func ParseEdgesInput(in string) ([][2]int, error) {
+
+	edges := [][2]int{}
+	if err := json.Unmarshal([]byte(in), &edges); err != nil {
+		return nil, err
 	}
-	return renderGraphLocal(graph)
+	return edges, nil
 }
 
-func renderGraphLocal(input [][]int) error {
+func RenderGraph(graph [][]int) error {
+	edges := [][2]int{}
+	for s, ds := range graph {
+		for _, d := range ds {
+			edges = append(edges, [2]int{s, d})
+		}
+	}
+	return RenderGraphByEdges(edges)
+}
+
+func RenderGraphByEdges(edges [][2]int) error {
 	g := graphviz.New()
 	graph, err := g.Graph()
 	if err != nil {
 		log.Fatal(err)
 	}
-	nodes := make([]*cgraph.Node, 0, len(input))
-	for i := 0; i < len(input); i++ {
-		n, err := graph.CreateNode(strconv.Itoa(i))
-		if err != nil {
-			return err
-		}
-		nodes = append(nodes, n)
-	}
-	for k, l1 := range input {
-		for _, l2 := range l1 {
-			s := nodes[k]
-			t := nodes[l2]
-			if _, err := graph.CreateEdge(``, s, t); err != nil {
+
+	nodes := map[int]*cgraph.Node{}
+	for _, l := range edges {
+		s, d := l[0], l[1]
+		sn := nodes[s]
+		if sn == nil {
+			sn, err = graph.CreateNode(strconv.Itoa(s))
+			if err != nil {
 				return err
 			}
+			nodes[s] = sn
+		}
+		dn := nodes[d]
+		if dn == nil {
+			dn, err = graph.CreateNode(strconv.Itoa(d))
+			if err != nil {
+				return err
+			}
+			nodes[d] = dn
+		}
+		if _, err := graph.CreateEdge(``, sn, dn); err != nil {
+			return err
 		}
 	}
+
 	var buf bytes.Buffer
 	if err := g.Render(graph, graphviz.PNG, &buf); err != nil {
 		log.Fatal(err)
