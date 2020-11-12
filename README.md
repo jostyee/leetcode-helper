@@ -1,25 +1,33 @@
 # leetcode-helper(by golang)
 
+[中文版](./README_CN.md)
+
 this library helps you with:
 
-- display some data structure by leetcode input
-- convert leetcode input to golang data structure
+- convert problem's input to golang data structure which used by leetcode
+- display some data structure by leetcode problem's input(string)
 
 now only `linked list`, `tree`, `graph` are supported
 
 ## story
 
-i like using IDE to solve leetcode problems, it's more efficient,
+i prefer using IDE(goland) to solve leetcode problems, you can debug your code easily,
 
-when i submit my solutions, sometimes my solutions will fail in some cases, 
+leetcode will provide some test cases which consists of input and output,
 
-and leetcode will be kind to tell me the input of the case in which our submission failed.
+so we can use these test cases to test our code.
 
-but leetcode input is just a string, which may represent a tree or graph 
+also, when our submission failed, leetcode will be kind to provide the corresponding input and output of the test case.
 
-or linkedlist, etc. so if we can convert the input to the visual original data structure, 
+but the leetcode problem input is just a string,
 
-it would help us to debug our code.
+for example: `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`, this input represents a tree,
+
+it's hard for us to know what's the tree looks like, 
+
+so i write this library, with it's help you can convert the input to golang data structure to test your code
+
+and display what does it look like.
 
 
 
