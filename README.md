@@ -1,4 +1,4 @@
-# leetcode-helper(for golang)
+# leetcode-helper(by golang)
 
 a library to help you display some data structure by leetcode input
 
