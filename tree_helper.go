@@ -62,16 +62,6 @@ func PrintTree(prefix string, n *TreeNode) {
 	}
 }
 
-type nodeList []*TreeNode
-
-func (n nodeList) String() string {
-	l := make([]int, 0, len(n))
-	for _, v := range n {
-		l = append(l, v.Val)
-	}
-	return fmt.Sprintf("%v", l)
-}
-
 func balanceWhiteSpace(val string, cnt int) string {
 	prefixCnt := cnt / 2
 	SuffixCnt := cnt - prefixCnt

@@ -30,7 +30,7 @@ func ParseLinkedListFromStr(input string) *ListNode {
 	return node
 }
 
-func GetIntLinkedListFromStr(input string) *IntListNode {
+func ParseIntLinkedListFromStr(input string) *IntListNode {
 	arr := strings.Split(input, `->`)
 	if len(arr) == 0 {
 		return nil
