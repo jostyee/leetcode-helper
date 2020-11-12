@@ -6,9 +6,9 @@ a libarary to help you display some data structure by leetcode input
 
 i like using IDE to solve leetcode problems, it's more efficient,
 
-when i submit my solutions, sometimes my solutions will fail
+when i submit my solutions, sometimes my solutions will fail in some cases, 
 
-in some cases, and leetcode will be kind to tell us the input of the cases 
+and leetcode will be kind to tell us the input of the cases 
 
 in which our submission failed.
 
