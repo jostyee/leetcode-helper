@@ -1,6 +1,11 @@
 # leetcode-helper(by golang)
 
-a library to help you display some data structure by leetcode input
+this library helps you with:
+
+- display some data structure by leetcode input
+- convert leetcode input to golang data structure
+
+now only `linked list`, `tree`, `graph` are supported
 
 ## story
 
@@ -8,15 +13,13 @@ i like using IDE to solve leetcode problems, it's more efficient,
 
 when i submit my solutions, sometimes my solutions will fail in some cases, 
 
-and leetcode will be kind to tell us the input of the case
-
-in which our submission failed.
+and leetcode will be kind to tell me the input of the case in which our submission failed.
 
 but leetcode input is just a string, which may represent a tree or graph 
 
-or linkedlist, etc. so if we can convert the input to the visual original data
+or linkedlist, etc. so if we can convert the input to the visual original data structure, 
 
-structure, it would help us to figure out what's wrong.
+it would help us to debug our code.
 
 
 
@@ -26,10 +29,17 @@ leetcode use a json array as input to represent a tree,
 
 it's hard for us to read the tree.
 
-with the helper, you can turn the input to a readable one, for example:
+with the helper, you can turn the input to a readable one,
+
+there are two way to display tree:
+
+
+### print in console
+
+for example:
 
 ```go
-func TestTree(t *testing.T) {
+func TestPrintTree(t *testing.T) {
 	input := `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`
 	tree := ParseTreeFromInput(input)
 	PrintTree(``, tree)
@@ -61,6 +71,25 @@ the right child locate above the parent.
 so the root is `9`, it's left child is `6`, it's right child is `-3`
 
 for the node `-3`, it's right child is `2`
+
+### rendered in pictures
+
+for example:
+
+```go
+
+func TestRenderTree(t *testing.T) {
+	input := `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`
+	tree := ParseTreeFromInput(input)
+	if err := RenderTree(tree); err != nil {
+		t.Fatal(t)
+	}
+}
+```
+
+`RenderTree` will pop up window:
+
+![](./images/pop-up-window-tree.png)
 
 
 ## LinkedList

@@ -1,13 +1,10 @@
 package leetcode
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/goccy/go-graphviz"
 	"github.com/goccy/go-graphviz/cgraph"
 	"log"
-	"os"
 	"os/exec"
 	"runtime"
 	"strconv"
@@ -41,46 +38,33 @@ func RenderGraph(graph [][]int) error {
 }
 
 func RenderGraphByEdges(edges [][2]int) error {
-	g := graphviz.New()
-	graph, err := g.Graph()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	nodes := map[int]*cgraph.Node{}
-	for _, l := range edges {
-		s, d := l[0], l[1]
-		sn := nodes[s]
-		if sn == nil {
-			sn, err = graph.CreateNode(strconv.Itoa(s))
-			if err != nil {
+	return render(func(graph *cgraph.Graph) error {
+		var err error
+		nodes := map[int]*cgraph.Node{}
+		for _, l := range edges {
+			s, d := l[0], l[1]
+			sn := nodes[s]
+			if sn == nil {
+				sn, err = graph.CreateNode(strconv.Itoa(s))
+				if err != nil {
+					return err
+				}
+				nodes[s] = sn
+			}
+			dn := nodes[d]
+			if dn == nil {
+				dn, err = graph.CreateNode(strconv.Itoa(d))
+				if err != nil {
+					return err
+				}
+				nodes[d] = dn
+			}
+			if _, err := graph.CreateEdge(``, sn, dn); err != nil {
 				return err
 			}
-			nodes[s] = sn
 		}
-		dn := nodes[d]
-		if dn == nil {
-			dn, err = graph.CreateNode(strconv.Itoa(d))
-			if err != nil {
-				return err
-			}
-			nodes[d] = dn
-		}
-		if _, err := graph.CreateEdge(``, sn, dn); err != nil {
-			return err
-		}
-	}
-
-	var buf bytes.Buffer
-	if err := g.Render(graph, graphviz.PNG, &buf); err != nil {
-		log.Fatal(err)
-	}
-	path := os.TempDir() + `/graph.png`
-	if err := g.RenderFilename(graph, graphviz.PNG, path); err != nil {
-		log.Fatal(err)
-	}
-	openbrowser(`file://` + path)
-	return nil
+		return nil
+	})
 }
 
 func openbrowser(url string) {

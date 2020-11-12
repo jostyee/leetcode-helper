@@ -3,6 +3,8 @@ package leetcode
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/goccy/go-graphviz/cgraph"
+	"strconv"
 )
 
 type TreeNode struct {
@@ -58,4 +60,88 @@ func PrintTree(prefix string, n *TreeNode) {
 		fmt.Printf("%s |-- %d\n", prefix, n.Val)
 		PrintTree(prefix+"    ", n.Left)
 	}
+}
+
+type nodeList []*TreeNode
+
+func (n nodeList) String() string {
+	l := make([]int, 0, len(n))
+	for _, v := range n {
+		l = append(l, v.Val)
+	}
+	return fmt.Sprintf("%v", l)
+}
+
+func balanceWhiteSpace(val string, cnt int) string {
+	prefixCnt := cnt / 2
+	SuffixCnt := cnt - prefixCnt
+	b := make([]byte, 0, len(val)+cnt)
+	for i := 0; i < prefixCnt; i++ {
+		b = append(b, ' ')
+	}
+	b = append(b, val...)
+	for i := 0; i < SuffixCnt; i++ {
+		b = append(b, ' ')
+	}
+	return string(b)
+}
+
+func RenderTree(n *TreeNode) error {
+	if n == nil {
+		return nil
+	}
+
+	stack := []*TreeNode{n}
+	nextStack := []*TreeNode{}
+
+	return render(func(graph *cgraph.Graph) error {
+		// cgraph will treat nodes with the same name as the same node
+		seq := map[int]int{}
+		nodeMap := map[*TreeNode]*cgraph.Node{}
+		createTreeNode := func(node *TreeNode) (*cgraph.Node, error) {
+			var err error
+			gNode, ok := nodeMap[node]
+			if !ok {
+				gNode, err = graph.CreateNode(balanceWhiteSpace(strconv.Itoa(node.Val), seq[node.Val]))
+				seq[node.Val]++
+				if err != nil {
+					return nil, err
+				}
+				nodeMap[node] = gNode
+			}
+			return gNode, nil
+		}
+
+		for len(stack) != 0 {
+			for _, v := range stack {
+				s, err := createTreeNode(v)
+				if err != nil {
+					return err
+				}
+				if v.Left != nil {
+					d1, err := createTreeNode(v.Left)
+					if err != nil {
+						return err
+					}
+					if _, err := graph.CreateEdge(``, s, d1); err != nil {
+						return err
+					}
+					nextStack = append(nextStack, v.Left)
+				}
+				if v.Right != nil {
+					d2, err := createTreeNode(v.Right)
+					if err != nil {
+						return err
+					}
+					nextStack = append(nextStack, v.Right)
+					if _, err := graph.CreateEdge(``, s, d2); err != nil {
+						return err
+					}
+				}
+			}
+			stack, nextStack = nextStack, stack
+			nextStack = nextStack[:0]
+		}
+		return nil
+	})
 }

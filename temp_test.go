@@ -5,10 +5,18 @@ import (
 	"testing"
 )
 
-func TestTree(t *testing.T) {
+func TestPrintTree(t *testing.T) {
 	input := `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`
 	tree := ParseTreeFromInput(input)
 	PrintTree(``, tree)
+}
+
+func TestRenderTree(t *testing.T) {
+	input := `[9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6]`
+	tree := ParseTreeFromInput(input)
+	if err := RenderTree(tree); err != nil {
+		t.Fatal(t)
+	}
 }
 
 func TestGraph(t *testing.T) {
@@ -18,7 +26,7 @@ func TestGraph(t *testing.T) {
 		t.Fatal(err)
 	}
 	if err := RenderGraph(graph); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 }
 
@@ -29,7 +37,7 @@ func TestGraphEdges(t *testing.T) {
 		t.Fatal(err)
 	}
 	if err := RenderGraphByEdges(edges); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 }
 
@@ -73,10 +81,10 @@ func TestTmp(t *testing.T) {
 	input := `[[4,3,1],[3,2,4],[3],[4],[]]`
 	in, err := ParseGraphInput(input)
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	if err := RenderGraph(in); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	out := allPathsSourceTarget(in)
 	fmt.Println(out)
