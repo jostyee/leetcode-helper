@@ -113,8 +113,12 @@ func RenderTree(n *TreeNode) {
 					if err != nil {
 						panic(err)
 					}
-					if _, err := graph.CreateEdge(``, s, d1); err != nil {
+					edge, err := graph.CreateEdge(``, s, d1)
+					if err != nil {
 						panic(err)
+					}
+					if v.Right == nil {
+						edge.SetLabel(`left`)
 					}
 					nextStack = append(nextStack, v.Left)
 				}
@@ -124,8 +128,12 @@ func RenderTree(n *TreeNode) {
 						panic(err)
 					}
 					nextStack = append(nextStack, v.Right)
-					if _, err := graph.CreateEdge(``, s, d2); err != nil {
+					edge, err := graph.CreateEdge(``, s, d2)
+					if err != nil {
 						panic(err)
+					}
+					if v.Left == nil {
+						edge.SetLabel(`right`)
 					}
 				}
 			}
